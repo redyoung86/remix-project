@@ -1,9 +1,12 @@
 import { ViewPlugin } from '@remixproject/engine'
 
 import * as packageJson from '../../../../../package.json'
+import React from 'react' // eslint-disable-line
+import ReactDOM from 'react-dom'
+import { FileExplorer } from '@remix-ui/file-explorer'
 var yo = require('yo-yo')
 var EventManager = require('../../lib/events')
-var FileExplorer = require('../files/file-explorer')
+// var FileExplorer = require('../files/file-explorer')
 var { RemixdHandle } = require('../files/remixd-handle.js')
 var globalRegistry = require('../../global/registry')
 var css = require('./styles/file-panel-styles')
@@ -53,13 +56,18 @@ module.exports = class Filepanel extends ViewPlugin {
     }
 
     function createProvider (key, menuItems) {
-      return new FileExplorer(self._components.registry, self._deps.fileProviders[key], menuItems, self)
+      return <FileExplorer
+        localRegistry={self._components.registry}
+        files={self._deps.fileProviders[key]}
+        menuItems={menuItems}
+        plugin={self}
+      />
     }
 
     var fileExplorer = createProvider('browser', ['createNewFile', 'publishToGist', canUpload ? 'uploadFile' : ''])
     var fileSystemExplorer = createProvider('localhost')
 
-    self.remixdHandle = new RemixdHandle(fileSystemExplorer, self._deps.fileProviders.localhost, appManager)
+    // self.remixdHandle = new RemixdHandle(fileSystemExplorer, self._deps.fileProviders.localhost, appManager)
 
     const explorers = yo`
       <div>
