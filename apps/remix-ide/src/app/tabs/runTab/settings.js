@@ -134,6 +134,7 @@ class SettingsUI {
             min="0"
             class="form-control ${css.gasNval} ${css.col2}"
             id="value"
+            data-id="dandrValue"
             value="0"
             title="Enter the value and choose the unit"
             onchange=${() => this.validateValue()}
