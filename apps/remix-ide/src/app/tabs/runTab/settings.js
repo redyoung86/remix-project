@@ -54,14 +54,15 @@ class SettingsUI {
   }
 
   validateValue () {
-    this.el.querySelector('#value').value = parseInt(this.el.querySelector('#value').value)
+    const valueEl = this.el.querySelector('#value')
+    valueEl.value = parseInt(valueEl.value)
     // assign 0 if given value is
     // - empty
     // - not valid (for ex 4345-54)
     // - contains only '0's (for ex 00..0)
-    if (!this.el.querySelector('#value').value) this.el.querySelector('#value').value = 0
+    if (!valueEl.value) valueEl.value = 0
     // if giveen value is negative, ignore '-'
-    if (this.el.querySelector('#value').value < 0) this.el.querySelector('#value').value = Math.abs(this.el.querySelector('#value').value)
+    if (valueEl.value < 0) valueEl.value = Math.abs(valueEl.value)
   }
 
   render () {
